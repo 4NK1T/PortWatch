@@ -1,0 +1,9 @@
+apiVersion: 1
+datasources:
+  - name: NmapSQLite
+    type: frser-sqlite-datasource
+    uid: P2D2EEF3E092AF52B
+    jsonData:
+      path: /var/lib/grafana/data/nmap_results.db
+      mode: ro
+    editable: true

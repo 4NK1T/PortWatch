@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  scanner:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.scanner
+    volumes:
+      - ./data:/data
+    environment:
+      - SCAN_INTERVAL=86400
+    restart: unless-stopped
+
+  grafana:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/var/lib/grafana/data:ro
+      - ./grafana/provisioning:/etc/grafana/provisioning    # This mounts your dashboard configs
+    environment:
+      - GF_INSTALL_PLUGINS=frser-sqlite-datasource
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    user: "472"
+    depends_on:
+      - scanner
+    restart: unless-stopped

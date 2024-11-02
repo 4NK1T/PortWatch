@@ -1,0 +1,19 @@
+# Database files
+data/*.sqlite
+data/*.db
+data/*.xml
+data/scan.log
+
+# Sensitive files
+.env
+data/targets.txt
+
+# Docker volumes
+data/*
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+Thumbs.db

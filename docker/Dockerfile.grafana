@@ -1,0 +1,15 @@
+FROM grafana/grafana:latest
+
+# Install SQLite plugin
+ENV GF_INSTALL_PLUGINS="frser-sqlite-datasource"
+
+# Copy Grafana provisioning configurations
+COPY grafana/provisioning /etc/grafana/provisioning
+
+# Set permissions for plugins
+USER root
+RUN chmod -R 777 /var/lib/grafana/plugins
+USER grafana
+
+# Expose Grafana port
+EXPOSE 3000
